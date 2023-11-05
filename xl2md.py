@@ -38,6 +38,9 @@ class: invert
   th,td {
     border: none!important;
   }
+  section {
+    font-family: "Garamond";
+  }
 </style>
 """
 

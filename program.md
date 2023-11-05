@@ -11,6 +11,9 @@ class: invert
   th,td {
     border: none!important;
   }
+  section {
+    font-family: "Garamond";
+  }
 </style>
 # 时光流转 琴音不辍
 浙江大学研究生艺术团钢琴音乐会
