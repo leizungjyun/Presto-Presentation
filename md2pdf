@@ -1,0 +1,2 @@
+#!/bin/bash
+marp --pdf $1
