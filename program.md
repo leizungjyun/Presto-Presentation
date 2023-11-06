@@ -12,7 +12,8 @@ class: invert
     border: none!important;
   }
   section {
-    font-family: "Garamond";
+    font-family: Garamond;
+
   }
 </style>
 # 时光流转 琴音不辍

@@ -1,0 +1,79 @@
+
+\documentclass[10pt]{article}
+% define page size
+% height 19cm
+% width 10cm
+\usepackage{geometry}
+%\geometry{papersize={10cm,19cm},total={8.5cm,17cm},top=1.5cm,left=1.8cm}
+\geometry{paperheight=19cm, paperwidth=10cm,total={8.5cm,17cm},top=1.5cm,left=1.8cm}
+
+\usepackage[UTF8]{ctex}
+\usepackage{etoolbox}
+
+
+\usepackage{graphicx}
+\usepackage{tikz}
+
+% \usepackage{eso-pic,adjustbox}
+
+% \AddToShipoutPictureBG{%
+%  \AtPageCenter{%
+%   \adjincludegraphics[width=\paperwidth,height=\paperheight,
+%     keepaspectratio,valign=M,center=0pt]{parchment.jpeg}%
+%   }}
+  \AddToHookNext{shipout/background}{
+    \begin{tikzpicture}[remember picture,overlay]
+    \node at (current page.center) {
+      \includegraphics{parchment.jpg}
+    };
+    \end{tikzpicture}
+  }
+  
+
+
+% this is a page of a concert program
+% it consists of a list of pieces
+% each piece has a Chinese title, with bigger font, all other text is smaller
+% an English title, the composer's chinse and english name, players Chinese names and players Englishe names, arranger's name (optional), 
+% define a new command to hold the piece
+
+\newcommand{\piece}[7]{
+    % set #1 to a bigger font
+    % CHinese title
+    \fangsong
+        \noindent{\\\normalsize #1}\\
+        \scriptsize
+    % english title
+        #2\\
+    % composer chinese and english name
+        #3 \quad #4\\
+    % arranger (optional)
+    \ifstrempty{#7}{}{{\tiny #7 改编}\\}
+
+    % define a two by two tabular
+    % @{} is for noindent
+\noindent\begin{tabular}{@{}l p{4.8cm}}
+         \noindent 演奏者 & #5\\
+        Performer & #6\\
+    \end{tabular}
+    \\\\
+
+
+
+}
+
+    
+
+
+
+
+\begin{document}
+\input{pieces}
+
+
+
+
+\thispagestyle{empty}
+
+\end{document}
+
