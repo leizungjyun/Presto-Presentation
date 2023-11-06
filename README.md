@@ -1,16 +1,25 @@
 # Piano Group Toolbox
-A toolbox for piano group of ZJU Graduate Art Troupe.
+An Excel-to-PDF toolbox for the Piano Group of ZJU Graduate Art Troupe.
+
+## Features
+* Generate concert presentation from Excel file (```generate-presentation```).
+* Generate concert program from Excel file (```generate-program```).
 
 
-## Requried
+## Requirements
+* Python packages: pandas, openpyxl
+* CLI interface of marp: marp-cli
+
+### Installation
 ```
 pip install pandas openpyxl
 brew install marp-cli
 ```
 
 
+## Usage
 
-## Excel to Concert Presentation
+### Excel to Concert Presentation
 After collecting the information of the program, you can use the following command to generate the concert presentation.
 
 ```bash
@@ -30,7 +39,7 @@ Two files `slides.md` and `slides.pdf` will be generated. Use `slides.pdf` to do
 ```
 
 
-## Excel to Concert Program
+### Excel to Concert Program
 
 ```bash
 ./generate-program <input-file> 
