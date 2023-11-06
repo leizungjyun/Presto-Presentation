@@ -3,6 +3,7 @@
 # %%
 # openpyxl requied
 import pandas as pd
+import os.path
 
 # %%
 # use the second row as the column name
@@ -12,11 +13,16 @@ import pandas as pd
 
 import sys
 if len(sys.argv) > 1:
-    df = pd.read_excel(sys.argv[1], header=1, skiprows=[2,3])
+    # decide if file exists
+    if not os.path.isfile(sys.argv[1]):
+        print(f"File {sys.argv[1]} does not exist!")
+        sys.exit(1)
+    else:
+        df = pd.read_excel(sys.argv[1], header=1, skiprows=[2,3])
 else:
     # print error message
-    print("Usage: python xl2md.py <input xlsx> <output md>")
-    print("Example: python xl2md.py 12.17音乐会节目信息征集.xlsx program.md")
+    print("Usage: python xl2md.py <input xlsx>")
+    print("Example: python xl2md.py 12.17音乐会节目信息征集.xlsx")
     # exit the program
     sys.exit(1)
 
@@ -46,7 +52,12 @@ class: invert
 
 # create a new markdown file named program prensentation which begins with the `front_matter`
 # write to the file specified by the second command line argument
-with open(sys.argv[2], 'w') as f:
+
+
+md_file = "slides.md"
+
+
+with open(md_file, 'w') as f:
     f.write(front_matter)
 
 
@@ -58,7 +69,7 @@ frontpage = """# 时光流转 琴音不辍
 """
 
 # write the frontpage
-with open(sys.argv[2], 'a') as f:
+with open(md_file, 'a') as f:
     f.write(frontpage)
     f.write('\n---\n')
 
@@ -71,7 +82,7 @@ warping = """# 注意事项
 """
 
 # write the warping page
-with open(sys.argv[2], 'a') as f:
+with open(md_file, 'a') as f:
     f.write(warping)
     f.write('\n---\n')
 
@@ -87,7 +98,7 @@ with open(sys.argv[2], 'a') as f:
 # | Performer | 表演者拼音 |
 # and end with --- except the last row
 
-with open(sys.argv[2], 'a') as f:
+with open(md_file, 'a') as f:
     for index, row in df.iterrows():
 
         if row["曲目中文名"] == "中场休息":
@@ -110,8 +121,8 @@ with open(sys.argv[2], 'a') as f:
 
 # %%
 # the last page is the same as the front page
-with open(sys.argv[2], 'a') as f:
+with open(md_file, 'a') as f:
     f.write(frontpage)
 
 # print out successful message
-print(f"Successfully convert the {sys.argv[1]} to {sys.argv[2]}")
+print(f"Successfully convert the {sys.argv[1]} to {md_file}")

@@ -1,10 +1,8 @@
 #!/bin/bash
 # usage: program input-xlsx-file output
 # example: xl2md input.xlsx output.md
-./xl2md.py $1 $2.md
-
 # convert makrdown $2 to pdf
-marp --pdf $2.md
+./xl2md.py $1 && marp --pdf slides.md
 
 
 

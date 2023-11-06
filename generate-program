@@ -1,0 +1,11 @@
+#!/bin/bash
+# usage: program input-xlsx-file 
+# example: xl2md input.xlsx 
+# define usage
+
+./xl2tex.py $1 && xelatex program.tex
+
+
+
+
+

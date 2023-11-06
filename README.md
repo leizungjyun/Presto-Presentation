@@ -10,22 +10,29 @@ brew install marp-cli
 
 
 
-## Excel to Program Presentation
-After collecting the information of the program, you can use the following command to generate the program presentation.
+## Excel to Concert Presentation
+After collecting the information of the program, you can use the following command to generate the concert presentation.
 
 ```bash
-./xl2pdf <input-file> <output>
+./generate-presentation <input-file> 
 ```
 
-`input-file` is a `.xlsx` file, which contains the information of the program. `output` is the filename without extension. For example,
+`input-file` is a `.xlsx` file, which contains the information of the program. For example,
 
 ```bash
-./xl2pdf example.xlsx program
+./generate-presentaion example.xlsx 
 ```
 
-Two files `program.md` and `program.pdf` will be generated. Use `program.pdf` to do presentation. You can also modify `program.md` to change the content of the presentation. Then, you can do
+Two files `slides.md` and `slides.pdf` will be generated. Use `slides.pdf` to do presentation. You can also modify `slides.md` to change the content of the presentation. Then, you can do
 
 ```bash
-./md2pdf program.md 
+./md2pdf slides.md 
 ```
 
+
+## Excel to Concert Program
+
+```bash
+./generate-program <input-file> 
+```
+The generated program will be saved in `program.pdf`.

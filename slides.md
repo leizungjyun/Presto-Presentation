@@ -12,8 +12,7 @@ class: invert
     border: none!important;
   }
   section {
-    font-family: Garamond;
-
+    font-family: "Garamond";
   }
 </style>
 # 时光流转 琴音不辍
@@ -27,6 +26,15 @@ class: invert
 1. 在演出期间，请您尽量避免在场内来回走动
 
 ---
+### 花之圆舞曲
+**Waltz of the Flowers**
+##### 柴可夫斯基 Pyotr Ilyich Tchaikovsky
+|       |      |
+| :-----|:------|
+| 表演者 | 卢俊义、于禁 |
+| Performer | LU Junyi, Yu Jin |
+
+---
 ### 叙事曲: 第一首
 **Ballade, Op.23: No.1**
 ##### 肖邦 Frédéric Chopin
@@ -36,13 +44,22 @@ class: invert
 | Performer | FAN Jiale |
 
 ---
+### C大调幻想曲第二乐章
+**Frantasie in C major II. Allegro**
+##### 舒伯特 Franz Schubert
+|       |      |
+| :-----|:------|
+| 表演者 | 王二小(小提琴)、施耐奄 |
+| Performer | WANG Erxiao (Violin), SHI Nai'an |
+
+---
 # 中场休息
 10分钟
 
 ---
 ### 八首音乐会练习曲: 田园
 **Eight Concerto Étude, Op.40
-Ⅵ. Pastorale**
+VI. Pastorale**
 ##### 卡普斯汀 Nikolai Kapustin
 |       |      |
 | :-----|:------|
@@ -52,7 +69,7 @@ class: invert
 ---
 ### 降E小调钢琴奏鸣曲
 **Piano Sonata in E minor, Op.26
-Ⅳ. Fuga**
+IV. Fuga**
 ##### 巴伯 Samuel Barber
 |       |      |
 | :-----|:------|
