@@ -1,11 +1,13 @@
 
 \documentclass[10pt]{article}
+% no page numbers
+\pagenumbering{gobble}
 % define page size
 % height 19cm
 % width 10cm
 \usepackage{geometry}
 %\geometry{papersize={10cm,19cm},total={8.5cm,17cm},top=1.5cm,left=1.8cm}
-\geometry{paperheight=19cm, paperwidth=10cm,total={8.5cm,17cm},top=1.5cm,left=1.8cm}
+\geometry{paperheight=19cm, paperwidth=10cm,total={6.5cm,17cm},top=0.5cm,left=1.6cm}
 
 \usepackage[UTF8]{ctex}
 \usepackage{etoolbox}
@@ -39,7 +41,8 @@
         \noindent{\\\normalsize #1}\\
         \scriptsize
     % english title
-        #2 \ifstrempty{#8}{}{- #8 \\}
+        #2  \ifstrempty{#8}{}{\vspace{-0.1cm}}\\
+        \ifstrempty{#8}{}{{\tiny #8 \\}}
     % composer chinese and english name
         #3 \quad #4\\
     % arranger (optional)
@@ -71,7 +74,7 @@
 
 
 
-\thispagestyle{empty}
+% \thispagestyle{empty}
 
 \end{document}
 
