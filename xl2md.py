@@ -111,6 +111,9 @@ with open(md_file, 'a') as f:
             f.write(f'### {row["曲目中文名"]}\n')
             f.write(f'**{row["曲目英文名"]}**\n')
             f.write(f'##### {row["作曲家中文"]} {row["作曲家英文"]}\n')
+            # if 改编者 is not nan
+            if row["改编者"] == row["改编者"]:
+                f.write(f'####### {row["改编者"]} 改编\n')
             f.write(f'|       |      |\n')
             f.write(f'| :-----|:------|\n')
             f.write(f'| 表演者 | {row["表演者"]} |\n')

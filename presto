@@ -19,14 +19,15 @@
 
 import argparse
 import subprocess
+import sys
 
 
 # define the function of generating concert program
 def gen_program(xlsx):
-    if subprocess.call(["./xl2tex.py", xlsx]) == 0:
+    if subprocess.call([sys.executable, "xl2tex.py", xlsx]) == 0:
         subprocess.call(["latexmk", "-xelatex", "program.tex"])
 def gen_slides(xlsx):
-    if subprocess.call(["./xl2md.py", xlsx]) == 0:
+    if subprocess.call([sys.executable, "xl2md.py", xlsx]) == 0:
         subprocess.call(["marp", "--pdf", "slides.md"])
 
 def main():
