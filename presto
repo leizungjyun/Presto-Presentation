@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+
+# Command Line Interface of presto information using argparse
+# Author: LI Shaun 
+# Date: 2023-11
+
+# define command line interface
+# Usage:
+# ./presto --program [xlsx file] to genreate concert program, xlsx file is optional, default to example.xlsx
+# this command call ./xl2tex.py $1 && latexmk -xelatex program.tex
+
+# ./presto --slides [xlsx file] to generate  concert slides, xlsx file is opetional, default to example.xlsx
+# this command call ./xl2md.py $1 && marp --pdf slides.md
+# ./presto -h to show help information
+
+import argparse
+import subprocess
+
+def main():
+    parser = argparse.ArgumentParser(description='Presto Information')
+    parser.add_argument('-p', '--program', nargs='?', const='example.xlsx', help='generate concert program (program.pdf)')
+    parser.add_argument('-s', '--slides', nargs='?', const='example.xlsx', help='generate concert slides (slides.pdf)')
+    args = parser.parse_args()
+    if args.program:
+        if subprocess.call(["./xl2tex.py", args.program]) == 0:
+            subprocess.call(["latexmk", "-xelatex", "program.tex"])
+    elif args.slides:
+        if subprocess.call(["./xl2md.py", args.slides]) == 0:
+            subprocess.call(["marp", "--pdf", "slides.md"])
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
+
+
+
+# import sys
+# import getopt
+# import subprocess
+# 
+# def usage():
+#     print("Usage:")
+#     print("presto --program [xlsx file] to genreate concert program, xlsx file is optional, default to example.xlsx")
+#     print("this command call ./xl2tex.py $1 && xelatex program.tex")
+#     print("presto --slides [xlsx file] to generate  concert slides, xlsx file is opetional, default to example.xlsx")
+#     print("this command call ./xl2md.py $1 && marp --pdf slides.md")
+#     print("presto -h to show help information")
+# 
+# def main():
+#     try:
+#         opts, args = getopt.getopt(sys.argv[1:], "h", ["help", "program", "slides"])
+#     except getopt.GetoptError as err:
+#         print(err)
+#         usage()
+#         sys.exit(2)
+#     if len(opts) == 0:
+#         usage()
+#         sys.exit(2)
+#     for o, a in opts:
+#         if o in ("-h", "--help"):
+#             usage()
+#             sys.exit(2)
+#         elif o in ("--program"):
+#             if len(args) == 0:
+#                 subprocess.call(["./xl2tex.py", "example.xlsx"])
+#                 subprocess.call(["xelatex", "program.tex"])
+#             else:
+#                 subprocess.call(["./xl2tex.py", args[0]])
+#                 subprocess.call(["xelatex", "program.tex"])
+#         elif o in ("--slides"):
+#             if len(args) == 0:
+#                 subprocess.call(["./xl2md.py", "example.xlsx"])
+#                 subprocess.call(["marp", "--pdf", "slides.md"])
+#             else:
+#                 subprocess.call(["./xl2md.py", args[0]])
+#                 subprocess.call(["marp", "--pdf", "slides.md"])
+#         else:
+#             assert False, "unhandled option"
+#             sys.exit(2)
+# 
+# if __name__ == "__main__":
+#     main()
+
+
+
+

@@ -2,13 +2,16 @@
 An Excel-to-PDF toolbox for the Piano Group of ZJU Graduate Art Troupe.
 
 ## Features
-* Generate concert presentation from Excel file (```generate-presentation```).
-* Generate concert program from Excel file (```generate-program```).
+* Generate concert presentation slides from Excel file.
+* Generate concert program pdf from Excel file.
 
 
 ## Requirements
 * Python packages: pandas, openpyxl
 * CLI interface of marp: marp-cli
+* latex engine: xelatex
+
+The presentation is based on Marp. The program is based on latex.
 
 ### Installation
 ```
@@ -20,20 +23,14 @@ brew install marp-cli
 ## Usage
 
 ### Excel to Concert Presentation
-After collecting the information of the program, you can use the following command to generate the concert presentation.
+After collecting the information of the program into an Excel file, you can use the following command to generate the concert presentation.
 
 ```bash
-./generate-presentation <input-file> 
+./presto -s [input-file]
+# or
+./presto --slides [input-file]
 ```
-
-`input-file` is a `.xlsx` file, which contains the information of the program. For example,
-
-```bash
-./generate-presentaion example.xlsx 
-```
-
-Two files `slides.md` and `slides.pdf` will be generated. Use `slides.pdf` to do presentation. You can also modify `slides.md` to change the content of the presentation. Then, you can do
-
+The `input-file` is optional, and the default value is `example.xlsx`.  `input-file` is a `.xlsx` file, which contains the information of the program.  The generated presentation will be saved in `slides.pdf`.  Another file `slides.md`, which is an intermediate result will also be generated.  You can also manully modify `slides.md` to change the content of the presentation. Then, you can do
 ```bash
 ./md2pdf slides.md 
 ```
@@ -42,6 +39,9 @@ Two files `slides.md` and `slides.pdf` will be generated. Use `slides.pdf` to do
 ### Excel to Concert Program
 
 ```bash
-./generate-program <input-file> 
+./presto -p  [input-file]
+# or
+./presto --program  [input-file]
 ```
 The generated program will be saved in `program.pdf`.
+
