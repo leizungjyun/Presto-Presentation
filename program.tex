@@ -11,16 +11,18 @@
 \usepackage{etoolbox}
 
 
-\usepackage{graphicx}
-\usepackage{tikz}
+% \usepackage{graphicx}
+% \usepackage{tikz}
+\usepackage{eso-pic,graphicx}
 
-  \AddToHookNext{shipout/background}{
-    \begin{tikzpicture}[remember picture,overlay]
-    \node at (current page.center) {
-      \includegraphics[width=\paperwidth]{background.jpg}
-    };
-    \end{tikzpicture}
-  }
+
+  % \AddToHookNext{shipout/background}{
+  %   \begin{tikzpicture}[remember picture,overlay]
+  %   \node at (current page.center) {
+  %     \includegraphics[width=\paperwidth]{background.jpg}
+  %   };
+  %   \end{tikzpicture}
+  % }
   
 
 
@@ -61,6 +63,9 @@
 
 
 \begin{document}
+
+\AddToShipoutPictureBG{\includegraphics[width=\paperwidth,height=\paperheight]{background.jpg}}
+
 \input{pieces}
 
 
