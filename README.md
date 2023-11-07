@@ -1,4 +1,4 @@
-# Piano Group Toolbox
+# Presto Presentation
 An Excel-to-PDF toolbox for the Piano Group of ZJU Graduate Art Troupe.
 
 ## Features
