@@ -30,14 +30,14 @@
 % an English title, the composer's chinse and english name, players Chinese names and players Englishe names, arranger's name (optional), 
 % define a new command to hold the piece
 
-\newcommand{\piece}[7]{
+\newcommand{\piece}[8]{
     % set #1 to a bigger font
-    % CHinese title
+    % Chinese title
     \fangsong
         \noindent{\\\normalsize #1}\\
         \scriptsize
     % english title
-        #2\\
+        #2 \ifstrempty{#8}{}{- #8 \\}
     % composer chinese and english name
         #3 \quad #4\\
     % arranger (optional)

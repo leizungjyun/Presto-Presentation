@@ -34,8 +34,18 @@ with open("pieces.tex", 'w') as f:
             f.write(intermission)
         else:
             # if row["改编者"] is NAN
-            if row["改编者"] == row["改编者"]:
-                f.write(f'\\piece{{{row["曲目中文名"]}}}{{{row["曲目英文名"]}}}{{{row["作曲家中文"]}}}{{{row["作曲家英文"]}}}{{{row["表演者"]}}}{{{row["表演者拼音"]}}}{{{row["改编者"]}}}\n\n')
+            f.write(f'\\piece{{{row["曲目中文名"]}}}{{{row["曲目英文名"]}}}{{{row["作曲家中文"]}}}{{{row["作曲家英文"]}}}{{{row["表演者中文"]}}}{{{row["表演者英文"]}}}')
+            if row["改编者 (选填) "] == row["改编者 (选填) "]: 
+                f.write(f'{{{row["改编者 (选填) "]}}}')
             else:
-                f.write(f'\\piece{{{row["曲目中文名"]}}}{{{row["曲目英文名"]}}}{{{row["作曲家中文"]}}}{{{row["作曲家英文"]}}}{{{row["表演者"]}}}{{{row["表演者拼音"]}}}{{}}\n\n')
+                f.write('{}')
+
+            if row["乐章英文 (选填) "] == row["乐章英文 (选填) "]: 
+                f.write(f'{{{row["乐章英文 (选填) "]}}}')
+            else:
+                f.write('{}')
+            
+            f.write('\n\n')
+
+
     print("File pieces.tex generated successfully!")
