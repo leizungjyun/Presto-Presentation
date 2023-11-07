@@ -45,3 +45,14 @@ The `input-file` is optional, and the default value is `example.xlsx`.  `input-f
 ```
 The generated program will be saved in `program.pdf`.
 
+### Excel to both Concert Presentation and Program
+
+```bash
+./presto -a  [input-file]
+# or
+./presto --all  [input-file]
+# or
+./presto -p -s [input-file]
+```
+
+

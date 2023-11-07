@@ -11,24 +11,55 @@
 
 # ./presto --slides [xlsx file] to generate  concert slides, xlsx file is opetional, default to example.xlsx
 # this command call ./xl2md.py $1 && marp --pdf slides.md
+
+# ./presto --clean to clean up unnecessary files except final PDFs, no arguments
+
+
 # ./presto -h to show help information
 
 import argparse
 import subprocess
 
+
+# define the function of generating concert program
+def gen_program(xlsx):
+    if subprocess.call(["./xl2tex.py", xlsx]) == 0:
+        subprocess.call(["latexmk", "-xelatex", "program.tex"])
+def gen_slides(xlsx):
+    if subprocess.call(["./xl2md.py", xlsx]) == 0:
+        subprocess.call(["marp", "--pdf", "slides.md"])
+
 def main():
     parser = argparse.ArgumentParser(description='Presto Information')
     parser.add_argument('-p', '--program', nargs='?', const='example.xlsx', help='generate concert program (program.pdf)')
     parser.add_argument('-s', '--slides', nargs='?', const='example.xlsx', help='generate concert slides (slides.pdf)')
+    parser.add_argument('-a', '--all', nargs='?', const='example.xlsx', help='generate both program and slides (program.pdf & slides.pdf)')
+    # --clean, no arguments
+    parser.add_argument('-c', '--clean', action="store_true", help='clean up unnecessary files except final PDFs')
+    parser.add_argument('-C', '--Clean', action="store_true", help='clean up all generated files')
     args = parser.parse_args()
-    if args.program:
-        if subprocess.call(["./xl2tex.py", args.program]) == 0:
-            subprocess.call(["latexmk", "-xelatex", "program.tex"])
+    
+    if args.program and args.slides:
+        gen_program(args.program)
+        gen_slides(args.slides)
     elif args.slides:
-        if subprocess.call(["./xl2md.py", args.slides]) == 0:
-            subprocess.call(["marp", "--pdf", "slides.md"])
-    else:
+        gen_slides(args.slides)
+    elif args.program:
+        gen_program(args.program)
+    elif args.all:
+        gen_program(args.all)
+        gen_slides(args.all)
+    elif args.clean:
+        # latexmk -c and remove slides.md
+        subprocess.call(["latexmk", "-c"])
+        subprocess.call(["rm", "slides.md"])
+    elif args.Clean:
+        # latexmk -C and remove slides.md
+        subprocess.call(["latexmk", "-C"])
+        subprocess.call(["rm", "slides.md", "slides.pdf"])
+    else: 
         parser.print_help()
+
 
 if __name__ == "__main__":
     main()
