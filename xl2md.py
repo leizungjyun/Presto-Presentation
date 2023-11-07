@@ -57,7 +57,7 @@ class: invert
 md_file = "slides.md"
 
 
-with open(md_file, 'w') as f:
+with open(md_file, 'w', encoding='utf-8') as f:
     f.write(front_matter)
 
 
@@ -69,7 +69,7 @@ frontpage = """# 时光流转 琴音不辍
 """
 
 # write the frontpage
-with open(md_file, 'a') as f:
+with open(md_file, 'a', encoding='utf-8') as f:
     f.write(frontpage)
     f.write('\n---\n')
 
@@ -82,7 +82,7 @@ warping = """# 注意事项
 """
 
 # write the warping page
-with open(md_file, 'a') as f:
+with open(md_file, 'a', encoding='utf-8') as f:
     f.write(warping)
     f.write('\n---\n')
 
@@ -98,7 +98,7 @@ with open(md_file, 'a') as f:
 # | Performer | 表演者拼音 |
 # and end with --- except the last row
 
-with open(md_file, 'a') as f:
+with open(md_file, 'a', encoding='utf-8') as f:
     for index, row in df.iterrows():
 
         if row["曲目中文名"] == "中场休息":
@@ -126,7 +126,7 @@ with open(md_file, 'a') as f:
 
 # %%
 # the last page is the same as the front page
-with open(md_file, 'a') as f:
+with open(md_file, 'a', encoding='utf-8') as f:
     f.write(frontpage)
 
 # print out successful message

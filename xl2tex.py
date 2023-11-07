@@ -28,7 +28,7 @@ intermission="""\\noindent\\begin{center}\\normalsize \hspace{-1.5cm} 中场休�
 \\vspace{0.3cm}
 """
 
-with open("pieces.tex", 'w') as f:
+with open("pieces.tex", 'w', encoding='utf-8') as f:
     for index, row in df.iterrows():
         if row["曲目中文名"] == "中场休息":
             f.write(intermission)
