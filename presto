@@ -52,11 +52,11 @@ def main():
     elif args.clean:
         # latexmk -c and remove slides.md
         subprocess.call(["latexmk", "-c"])
-        subprocess.call(["rm", "slides.md"])
+        subprocess.call(["rm", "slides.md", "pieces.tex"])
     elif args.Clean:
         # latexmk -C and remove slides.md
         subprocess.call(["latexmk", "-C"])
-        subprocess.call(["rm", "slides.md", "slides.pdf"])
+        subprocess.call(["rm", "slides.md", "slides.pdf", "pieces.tex"])
     else: 
         parser.print_help()
 

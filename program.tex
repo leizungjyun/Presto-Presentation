@@ -14,17 +14,10 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 
-% \usepackage{eso-pic,adjustbox}
-
-% \AddToShipoutPictureBG{%
-%  \AtPageCenter{%
-%   \adjincludegraphics[width=\paperwidth,height=\paperheight,
-%     keepaspectratio,valign=M,center=0pt]{parchment.jpeg}%
-%   }}
   \AddToHookNext{shipout/background}{
     \begin{tikzpicture}[remember picture,overlay]
     \node at (current page.center) {
-      \includegraphics{parchment.jpg}
+      \includegraphics{background.jpg}
     };
     \end{tikzpicture}
   }
