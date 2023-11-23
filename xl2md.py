@@ -4,7 +4,6 @@ import os.path
 import sys
 
 # use the second row as the column name
-# ignore the third and forth row
 # pandas's read_excel is based on openpyxl
 # the input xlsx is specified by command line argument
 if len(sys.argv) > 1:
@@ -13,7 +12,8 @@ if len(sys.argv) > 1:
         print(f"File {sys.argv[1]} does not exist!")
         sys.exit(1)
     else:
-        df = pd.read_excel(sys.argv[1], header=1, skiprows=[2,3])
+# ignore the third to the nineth rows
+        df = pd.read_excel(sys.argv[1], header=1, skiprows=range(2, 9))
 else:
     # print error message
     print("Usage: python xl2md.py <input xlsx>")
@@ -41,6 +41,9 @@ th,td {
 section {
     font-family: "Garamond";
 }
+h3{
+  margin-bottom:00px;
+}
 </style>
 """
 # the second page is warping
@@ -51,8 +54,8 @@ warping = """# 注意事项
 1. 在演出期间，请您尽量避免在场内来回走动
 """
 # the first page of the program presentation 
-frontpage = """# 时光流转 琴音不辍
-浙江大学研究生艺术团钢琴音乐会
+frontpage = """# 冬季学术交流音乐会
+中国音乐学院管弦系 浙江大学研究生艺术团
 """
 
 with open(md_file, 'w', encoding='utf-8') as f:
@@ -76,18 +79,24 @@ with open(md_file, 'w', encoding='utf-8') as f:
             f.write(f'# {row["曲目中文名"]}\n')
             f.write(f'10分钟\n')
         else:
+            f.write(f'##### {row["作曲家中文"]} {row["作曲家英文"]}\n')
             f.write(f'### {row["曲目中文名"]}\n')
-            f.write(f'**{row["曲目英文名"]}**\n')
+            f.write(f'**{row["曲目英文名"]}**\n\n')
             if row["乐章英文 (选填) "] == row["乐章英文 (选填) "]: 
                 f.write(f'**{row["乐章英文 (选填) "]}**\n')
-            f.write(f'##### {row["作曲家中文"]} {row["作曲家英文"]}\n')
             # if 改编者 is not nan
             if row["改编者 (选填) "] == row["改编者 (选填) "]: 
                 f.write(f'###### {row["改编者 (选填) "]} 改编\n')
             f.write(f'|       |      |\n')
             f.write(f'| :-----|:------|\n')
-            f.write(f'| 表演者 | {row["表演者中文"]} |\n')
-            f.write(f'| Performer | {row["表演者英文"]} |\n')
+            f.write(f'|       |      |\n')
+            f.write(f'|  {row["表演者中文"]} |\n')
+
+            # if 表演者英文 is not NAN
+            if row["表演者英文"] == row["表演者英文"]: 
+                f.write(f'|  {row["表演者英文"]} |\n')
+
+            # f.write(f'| Performer | {row["表演者英文"]} |\n')
         f.write('\n---\n')
 
     # the last page is the same as the front page

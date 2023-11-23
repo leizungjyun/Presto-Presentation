@@ -50,11 +50,12 @@
 
     % define a two by two tabular
     % @{} is for noindent
-\noindent\begin{tabular}{@{}l p{4.8cm}}
-         \noindent 演奏者 & #5\\
-        Performer & #6\\
-    \end{tabular}
-    \\\\
+% \noindent\begin{tabular}{@{}l p{4.8cm}}
+%          \noindent 演奏者 & #5\\
+%         Performer & #6\\
+%     \end{tabular}
+    \noindent #5\\
+    \ifstrempty{#6}{}{{\tiny #6}\\}
 
 
 

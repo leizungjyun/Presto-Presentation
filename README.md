@@ -36,9 +36,13 @@ python presto -s [input-file]
 # or
 python presto --slides [input-file]
 ```
-The `input-file` is optional, and the default value is `example.xlsx`.  `input-file` is a `.xlsx` file, which contains the information of the program.  The generated presentation will be saved in `slides.pdf`.  Another file `slides.md`, which is an intermediate result will also be generated.  You can also manully modify `slides.md` to change the content of the presentation. Then, you can do
+The `input-file` is optional, and the default value is `example.xlsx`.  `input-file` is a `.xlsx` file, which contains the information of the program.  The generated presentation will be saved in `slides.pdf`.  Another file `slides.md`, which is an intermediate result will also be generated.  You can also manually modify `slides.md` to change the content of the presentation. Then, you can do
 ```bash
 python presto -m [slides.md]
+```
+If you want to add local image files
+```bash
+marp --pdf --allow-local-files slides.md
 ```
 
 

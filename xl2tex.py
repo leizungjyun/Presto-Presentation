@@ -13,7 +13,7 @@ if len(sys.argv) > 1:
         print(f"File {sys.argv[1]} does not exist!")
         sys.exit(1)
     else:
-        df = pd.read_excel(sys.argv[1], header=1, skiprows=[2,3])
+        df = pd.read_excel(sys.argv[1], header=1, skiprows=range(2,9))
 else:
     # print error message
     print("Usage: python xl2tex.py <input xlsx>")
@@ -33,8 +33,18 @@ with open("pieces.tex", 'w', encoding='utf-8') as f:
         if row["曲目中文名"] == "中场休息":
             f.write(intermission)
         else:
-            # if row["改编者"] is NAN
-            f.write(f'\\piece{{{row["曲目中文名"]}}}{{{row["曲目英文名"]}}}{{{row["作曲家中文"]}}}{{{row["作曲家英文"]}}}{{{row["表演者中文"]}}}{{{row["表演者英文"]}}}')
+
+            # replace all \n to \\ in 表演者中文
+            row["表演者中文"] = row["表演者中文"].replace("\n", "\\\\")
+
+
+            f.write(f'\\piece{{{row["曲目中文名"]}}}{{{row["曲目英文名"]}}}{{{row["作曲家中文"]}}}{{{row["作曲家英文"]}}}{{{row["表演者中文"]}}}')
+            
+            # if 表演者英文 is NAN
+            if row["表演者英文"] == row["表演者英文"]: 
+                f.write(f'{{{row["表演者英文"]}}}')
+            else:
+                f.write('{}')
             if row["改编者 (选填) "] == row["改编者 (选填) "]: 
                 f.write(f'{{{row["改编者 (选填) "]}}}')
             else:
