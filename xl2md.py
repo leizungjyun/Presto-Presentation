@@ -83,10 +83,12 @@ with open(md_file, 'w', encoding='utf-8') as f:
             f.write(f'### {row["曲目中文名"]}\n')
             f.write(f'**{row["曲目英文名"]}**\n\n')
             if row["乐章英文 (选填) "] == row["乐章英文 (选填) "]: 
-                f.write(f'**{row["乐章英文 (选填) "]}**\n')
+                if row["乐章英文 (选填) "] !='\u3000':
+                    f.write(f'**{row["乐章英文 (选填) "]}**\n')
             # if 改编者 is not nan
-            if row["改编者 (选填) "] == row["改编者 (选填) "]: 
-                f.write(f'###### {row["改编者 (选填) "]} 改编\n')
+            if row["改编者 (选填) "] == row["改编者 (选填) "]:
+                if row["改编者 (选填) "] !='\u3000':
+                    f.write(f'###### {row["改编者 (选填) "]} 改编\n')
             f.write(f'|       |      |\n')
             f.write(f'| :-----|:------|\n')
             f.write(f'|       |      |\n')
@@ -94,7 +96,8 @@ with open(md_file, 'w', encoding='utf-8') as f:
 
             # if 表演者英文 is not NAN
             if row["表演者英文"] == row["表演者英文"]: 
-                f.write(f'|  {row["表演者英文"]} |\n')
+                if row["表演者英文"] !='\u3000':
+                    f.write(f'|  {row["表演者英文"]} |\n')
 
             # f.write(f'| Performer | {row["表演者英文"]} |\n')
         f.write('\n---\n')
