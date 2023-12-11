@@ -78,6 +78,11 @@ warning = """# 注意事项
 1. 在演出期间，请您尽量避免在场内来回走动
 """
 
+movement_warning = """
+此作品有多个乐章，为保证演出效果，请勿在乐章间鼓掌。
+This has multiple movements. Please do not applaud between movements.
+"""
+
 
 with open(md_file, 'w', encoding='utf-8') as f:
     f.write(front_matter)
@@ -95,7 +100,15 @@ with open(md_file, 'w', encoding='utf-8') as f:
     # | 表演者 | 表演者 |
     # | Performer | 表演者拼音 |
     # and end with --- except the last row
+
+
+    last_row = None
     for index, row in df.iterrows():
+        
+        if last_row is not None:
+            if row["曲目中文名"] == last_row["曲目中文名"]:
+                f.write(f'{movement_warning}\n')
+                f.write('\n---\n')
         if row["曲目中文名"] == "中场休息":
             f.write(f'# {row["曲目中文名"]}\n')
             f.write(f'10分钟\n')
@@ -122,6 +135,8 @@ with open(md_file, 'w', encoding='utf-8') as f:
 
             # f.write(f'| Performer | {row["表演者英文"]} |\n')
         f.write('\n---\n')
+        last_row = row
+
 
     # the last page is the same as the front page
     f.write(frontpage)
