@@ -3,6 +3,14 @@ import pandas as pd # openpyxl requied
 import os.path
 import sys
 
+
+
+# the first page of the program presentation 
+frontpage = """# 冬季学术交流音乐会
+中国音乐学院管弦系 浙江大学研究生艺术团
+"""
+
+
 # use the second row as the column name
 # pandas's read_excel is based on openpyxl
 # the input xlsx is specified by command line argument
@@ -12,8 +20,24 @@ if len(sys.argv) > 1:
         print(f"File {sys.argv[1]} does not exist!")
         sys.exit(1)
     else:
-# ignore the third to the nineth rows
-        df = pd.read_excel(sys.argv[1], header=1, skiprows=range(2, 9))
+
+        # heading_cn in b1
+        # heading_en in b2
+        # troupe_cn in b3
+        # troupe_en in b4
+        # load the file, don't skip the heading
+        df = pd.read_excel(sys.argv[1], header=None)
+
+        # load heading_cn, heading_en, troupe_cn, troupe_en
+        heading_cn = df.iloc[0, 1]
+        heading_en = df.iloc[1, 1]
+        troupe_cn = df.iloc[2, 1]
+        troupe_en = df.iloc[3, 1]
+
+
+        frontpage = f"# {heading_cn}\n#### {heading_en}\n### {troupe_cn}\n{troupe_en}\n"
+        # ignore the eighth to the 13th rows
+        df = pd.read_excel(sys.argv[1], header=6, skiprows=range(7, 14))
 else:
     # print error message
     print("Usage: python xl2md.py <input xlsx>")
@@ -41,28 +65,25 @@ th,td {
 section {
     font-family: "Garamond";
 }
-h3{
+h1,h3,h4{
   margin-bottom:00px;
 }
 </style>
 """
-# the second page is warping
-warping = """# 注意事项
+# the second page is warning
+warning = """# 注意事项
 1. 请关闭您的手机或将您的手机调至静音状态
 1. 请勿使用闪光灯拍照、摄影
 1. 请妥善放置塑料袋等容易发出声响的物品
 1. 在演出期间，请您尽量避免在场内来回走动
 """
-# the first page of the program presentation 
-frontpage = """# 冬季学术交流音乐会
-中国音乐学院管弦系 浙江大学研究生艺术团
-"""
+
 
 with open(md_file, 'w', encoding='utf-8') as f:
     f.write(front_matter)
     f.write(frontpage)
     f.write('\n---\n')
-    f.write(warping)
+    f.write(warning)
     f.write('\n---\n')
     # for each row in df, conver it and write to the markdown file as follows
     # 曲目中文名 --> ### 曲目中文名
