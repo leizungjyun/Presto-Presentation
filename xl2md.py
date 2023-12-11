@@ -1,48 +1,13 @@
 #!/usr/bin/env python
 import pandas as pd # openpyxl requied
-import os.path
 import sys
+from load_xl import load_xl
 
 
+# load the excel file and return dataframe, heading_cn, heading_en, troupe_cn, troupe_en
+df, heading_cn, heading_en, troupe_cn, troupe_en = load_xl(purpose="slides")
 
-# the first page of the program presentation 
-frontpage = """# 冬季学术交流音乐会
-中国音乐学院管弦系 浙江大学研究生艺术团
-"""
-
-
-# use the second row as the column name
-# pandas's read_excel is based on openpyxl
-# the input xlsx is specified by command line argument
-if len(sys.argv) > 1:
-    # decide if file exists
-    if not os.path.isfile(sys.argv[1]):
-        print(f"File {sys.argv[1]} does not exist!")
-        sys.exit(1)
-    else:
-
-        # heading_cn in b1
-        # heading_en in b2
-        # troupe_cn in b3
-        # troupe_en in b4
-        # load the file, don't skip the heading
-        df = pd.read_excel(sys.argv[1], header=None)
-
-        # load heading_cn, heading_en, troupe_cn, troupe_en
-        heading_cn = df.iloc[0, 1]
-        heading_en = df.iloc[1, 1]
-        troupe_cn = df.iloc[2, 1]
-        troupe_en = df.iloc[3, 1]
-
-
-        frontpage = f"# {heading_cn}\n#### {heading_en}\n### {troupe_cn}\n{troupe_en}\n"
-        # ignore the eighth to the 13th rows
-        df = pd.read_excel(sys.argv[1], header=6, skiprows=range(7, 14))
-else:
-    # print error message
-    print("Usage: python xl2md.py <input xlsx>")
-    print("Example: python xl2md.py 12.17音乐会节目信息征集.xlsx")
-    sys.exit(1)
+frontpage = f"# {heading_cn}\n#### {heading_en}\n# \n#### {troupe_cn}\n###### {troupe_en}\n"
 
 # create a new markdown file named program prensentation which begins with the `front_matter`
 # write to the file specified by the second command line argument
@@ -112,22 +77,23 @@ with open(md_file, 'w', encoding='utf-8') as f:
                 f.write('\n---\n')
         if row["曲目中文名"] == "中场休息":
             f.write(f'# {row["曲目中文名"]}\n')
-            f.write(f'10分钟\n')
+            f.write(f'### Intermission\n')
+            f.write(f'### 10分钟\n')
         else:
             f.write(f'##### {row["作曲家中文"]} {row["作曲家英文"]}\n')
+            if row["改编者 (选填) "] == row["改编者 (选填) "]:
+                if row["改编者 (选填) "] !='\u3000':
+                    f.write(f'###### {row["改编者 (选填) "]} 改编\n')
             f.write(f'### {row["曲目中文名"]}\n')
             f.write(f'**{row["曲目英文名"]}**\n\n')
             if row["乐章英文 (选填) "] == row["乐章英文 (选填) "]: 
                 if row["乐章英文 (选填) "] !='\u3000':
                     f.write(f'**{row["乐章英文 (选填) "]}**\n')
             # if 改编者 is not nan
-            if row["改编者 (选填) "] == row["改编者 (选填) "]:
-                if row["改编者 (选填) "] !='\u3000':
-                    f.write(f'###### {row["改编者 (选填) "]} 改编\n')
-            f.write(f'|       |      |\n')
-            f.write(f'| :-----|:------|\n')
-            f.write(f'|       |      |\n')
-            f.write(f'|  {row["表演者中文"]} |\n')
+            f.write(f'|         |\n')
+            f.write(f'| :-----: |\n')
+            f.write(f'|         |\n')
+            f.write(f'|  {row["表演者中文"]}  |\n')
 
             # if 表演者英文 is not NAN
             if row["表演者英文"] == row["表演者英文"]: 

@@ -1,25 +1,10 @@
 #!/usr/bin/env python
 import os.path
 import pandas as pd
+from load_xl import load_xl
 
-# %%
-# use the second row as the column name
-# ignore the third and forth row
-# pandas's read_excel is based on openpyxl
-import sys
-if len(sys.argv) > 1:
-    # decide if file exists
-    if not os.path.isfile(sys.argv[1]):
-        print(f"File {sys.argv[1]} does not exist!")
-        sys.exit(1)
-    else:
-        df = pd.read_excel(sys.argv[1], header=1, skiprows=range(2,9))
-else:
-    # print error message
-    print("Usage: python xl2tex.py <input xlsx>")
-    print("Example: python xl2md.py 12.17音乐会节目信息征集.xlsx")
-    # exit the program
-    sys.exit(1)
+df = load_xl(purpose="tex")
+
 
 # for each row in df, convert it and write to a tex file called pieces.tex as follows
 # \piece{曲目中文名}{曲目英文名}{作曲家中文}{作曲家英文}{表演者}{表演者拼音}{改编者}
