@@ -80,7 +80,7 @@ warning = """# 注意事项
 
 movement_warning = """
 此作品有多个乐章，为保证演出效果，请勿在乐章间鼓掌。
-This has multiple movements.
+This work has multiple movements.
 Please do not applaud between movements.
 """
 
