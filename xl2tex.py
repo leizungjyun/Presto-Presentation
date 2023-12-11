@@ -14,7 +14,22 @@ intermission="""\\noindent\\begin{center}\\normalsize \hspace{-1.5cm} 中场休�
 """
 
 with open("pieces.tex", 'w', encoding='utf-8') as f:
+    running_mvt_name = ""
     for index, row in df.iterrows():
+
+        # compare the current row with the next row
+        if index < len(df) - 1:
+            next_row = df.iloc[index + 1]
+            if row["曲目中文名"] == next_row["曲目中文名"]:
+                running_mvt_name += str(row["乐章英文 (选填) "])
+                running_mvt_name += " "
+                print(running_mvt_name)
+                continue
+            else:
+                if row["乐章英文 (选填) "] == row["乐章英文 (选填) "]: 
+                    if row["乐章英文 (选填) "] != '\u3000':
+                        running_mvt_name += str(row["乐章英文 (选填) "])
+
         if row["曲目中文名"] == "中场休息":
             f.write(intermission)
         else:
@@ -31,12 +46,23 @@ with open("pieces.tex", 'w', encoding='utf-8') as f:
             else:
                 f.write('{}')
             if row["改编者 (选填) "] == row["改编者 (选填) "]: 
-                f.write(f'{{{row["改编者 (选填) "]}}}')
+                if row["改编者 (选填) "] != '\u3000':
+                    f.write(f'{{{row["改编者 (选填) "]}}}')
+                else:
+                    print
+                    f.write('{}')
             else:
                 f.write('{}')
-
-            if row["乐章英文 (选填) "] == row["乐章英文 (选填) "]: 
-                f.write(f'{{{row["乐章英文 (选填) "]}}}')
+            
+            if running_mvt_name != "":
+                f.write(f'{{{running_mvt_name}}}')
+                running_mvt_name = ""
+            elif row["乐章英文 (选填) "] == row["乐章英文 (选填) "]: 
+                if row["乐章英文 (选填) "] != '\u3000':
+                    f.write(f'{{{row["乐章英文 (选填) "]}}}')
+                else:
+                    print("there")
+                    f.write('{}')
             else:
                 f.write('{}')
             
