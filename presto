@@ -32,7 +32,7 @@ def gen_program(xlsx):
         subprocess.call(["latexmk", "-xelatex", default_main_tex])
 def gen_slides(xlsx):
     if subprocess.call([sys.executable, "xl2md.py", xlsx]) == 0:
-        subprocess.call(["marp", "--pdf", default_md])
+        subprocess.call(["marp", "--pdf", "--allow-local-files", default_md])
 
 def main():
     parser = argparse.ArgumentParser(description='Presto Information')
@@ -52,7 +52,7 @@ def main():
     elif args.program:
         gen_program(args.program)
     elif args.md:
-        subprocess.call(["marp", "--pdf", args.md])
+        subprocess.call(["marp", "--pdf", "--allow-local-files", args.md])
     elif args.all:
         gen_program(args.all)
         gen_slides(args.all)
